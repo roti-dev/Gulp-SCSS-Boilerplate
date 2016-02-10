@@ -1,0 +1,73 @@
+
+// Breakpoints
+// mobile first responsive mixins
+$xs: 480px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$xl: 1440px;
+
+// Breakpoint Mixins
+@mixin breakpoint($point) {
+  @if $point == xs {
+    @media only screen and (min-width: $xs) {
+      @content;
+    }
+  }
+  @if $point == sm {
+    @media only screen and (min-width: $sm) {
+      @content;
+    }
+  }
+  @if $point == md {
+    @media only screen and (min-width: $md) {
+      @content;
+    }
+  }
+  @if $point == lg {
+    @media only screen and (min-width: $lg) {
+      @content;
+    }
+  }
+}
+
+// Mixin for Responsive Background Images
+@mixin background($directory, $file, $hide:null) {
+
+  background-image: none;
+
+  @if not index('sm', $hide) {
+    //background file width 992px
+    @include breakpoint(xs) {
+      background-image: url(#{$directory}/#{$file}-sm.jpg);
+    }
+  }
+
+  @include breakpoint(sm) {
+    background-image: url(#{$directory}/#{$file}.jpg);
+  }
+
+  @media
+  (-webkit-min-device-pixel-ratio: 1.5),
+  (min-resolution: 144dpi){
+
+    background-image: none;
+
+    @if not index('xs' 'sm', $hide) {
+      @include breakpoint(xs) {
+        background-image: url(#{$directory}/#{$file}-xs-@2x.jpg);
+      }
+    }
+
+    @if not index('sm', $hide) {
+      @include breakpoint(sm) {
+        background-image: url(#{$directory}/#{$file}-sm-@2x.jpg);
+      }
+    }
+
+    //background file width 2880px
+    @include breakpoint(md) {
+      background-image: url(#{$directory}/#{$file}-@2x.jpg);
+    }
+  }
+}

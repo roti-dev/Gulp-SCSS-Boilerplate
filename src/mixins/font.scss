@@ -1,0 +1,45 @@
+$base-font-size: 15;
+
+// Font Mixins
+@mixin font-size-convert($px) {
+  font-size: $px + px;
+  font-size: $px / 15 + rem;
+}
+
+@mixin font-size($base, $xs:null, $sm:null, $md:null, $lg:null) {
+  @include font-size-convert($base);
+
+  @include breakpoint(xs) {
+    @include font-size-convert($base);
+    @if $xs  != null { @include font-size-convert($xs); }
+  }
+
+  @include breakpoint(sm) {
+    @include font-size-convert($base);
+    @if $xs  != null { @include font-size-convert($xs); }
+    @if $sm  != null { @include font-size-convert($sm); }
+  }
+
+  @include breakpoint(md) {
+    @include font-size-convert($base);
+    @if $xs  != null { @include font-size-convert($xs); }
+    @if $sm  != null { @include font-size-convert($sm); }
+    @if $md  != null { @include font-size-convert($md); }
+  }
+
+  @include breakpoint(lg) {
+    @include font-size-convert($base);
+    @if $xs  != null { @include font-size-convert($xs); }
+    @if $sm  != null { @include font-size-convert($sm); }
+    @if $md  != null { @include font-size-convert($md); }
+    @if $lg  != null { @include font-size-convert($lg); }
+  }
+}
+
+// Font Placeholders
+%base-font {
+  font-size: $base-font-size + px;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
